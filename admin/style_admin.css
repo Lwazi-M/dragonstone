@@ -245,3 +245,53 @@ ADMIN TABLE & FORM STYLES
   background-color: #e74c3c; /* Red */
   color: white;
 }
+
+/* =========================================
+ADMIN FORM STYLES
+========================================= */
+
+.data-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 800px; /* Limit form width */
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* This styles all text inputs, textareas, and number inputs */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  box-sizing: border-box; /* Important for 100% width */
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem; /* Space between buttons */
+  margin-top: 2rem;
+}
+
+.btn-cancel {
+  background-color: #7f8c8d; /* Grey */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
