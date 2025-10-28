@@ -177,3 +177,71 @@ ADMIN LAYOUT STYLES
   font-weight: bold;
   color: var(--color-primary-green);
 }
+
+/* =========================================
+ADMIN TABLE & FORM STYLES
+========================================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between; /* Puts "Manage Products" on left, button on right */
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h2 {
+  font-size: 1.8rem;
+}
+
+.btn-add {
+  background-color: var(--color-primary-green);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* === Data Table Styles === */
+.data-table {
+  width: 100%;
+  border-collapse: collapse; /* Merges cell borders */
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid var(--color-border-light);
+  padding: 1rem;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: var(--color-background-light-grey);
+}
+
+.table-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.table-actions a {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.btn-edit {
+  background-color: #3498db; /* Blue */
+  color: white;
+}
+
+.btn-delete {
+  background-color: #e74c3c; /* Red */
+  color: white;
+}
