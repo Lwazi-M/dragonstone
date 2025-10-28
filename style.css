@@ -383,3 +383,10 @@ footer {
   font-size: 0.9rem;
   margin-top: 4rem; /* Adds space above the footer */
 }
+
+.product-card .product-image {
+  width: 100%; /* Makes the image fill the card's width */
+  height: 250px; /* Gives all images a uniform height */
+  object-fit: cover; /* This is magic: it makes the image cover the space
+                       without stretching or squashing. */
+}

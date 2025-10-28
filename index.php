@@ -56,13 +56,60 @@
         <section class="product-section">
             <h2>Best Sellers</h2>
             <div class="product-grid">
-                <div class="product-card">
-                    <h3>Bamboo Toothbrush Set</h3>
-                    <p>Eco-friendly bamboo toothbrushes...</p>
-                    <span>R89.99</span>
-                </div>
-                
-                </div>
+
+                <?php
+                /*
+                This is our first "real" PHP block.
+                1. We'll include our "key" (the db_connect.php file).
+                2. We'll write a SQL "question" (the query).
+                3. We'll loop through the "answers" (the products).
+                4. We'll "print" (echo) HTML for each one.
+                */
+
+                // 1. Include our database connection "key"
+                include 'db_connect.php';
+
+                // 2. Write our SQL query "question"
+                // We ask it to "SELECT" all columns (*) "FROM" the 'products' table.
+                $sql = "SELECT * FROM products";
+                $result = $conn->query($sql);
+
+                // 3. Loop through the results
+                // We check if we got at least one row of data
+                if ($result->num_rows > 0) {
+                    // $result->fetch_assoc() grabs one product row at a time
+                    // and puts it into a variable called '$row'
+                    while($row = $result->fetch_assoc()) {
+                        /*
+                        4. "Print" the HTML.
+                        This is the *exact same* HTML as our placeholder card,
+                        but we are "echoing" it and replacing the hard-coded text
+                        with our database variables (like $row['name']).
+
+                        The 'images/' part is just a guess for now. We need
+                        to create an 'images' folder and put files in it
+                        that match the 'image_url' in the database.
+                        */
+
+                        echo '<div class="product-card">';
+                        echo '  <img src="' . $row['image_url'] . '" alt="' . $row['name'] . '" class="product-image">'; // We'll style .product-image next
+                        echo '  <h3>' . $row['name'] . '</h3>';
+                        echo '  <p>' . $row['description'] . '</p>';
+                        echo '  <span>R ' . $row['price'] . '</span>';
+                        echo '</div>';
+                    }
+                } else {
+                    // If the database is empty, show a message.
+                    echo "<p>No products found.</p>";
+                }
+
+                // 5. Close the "filing cabinet"
+                // This is good practice.
+                $conn->close();
+
+                ?>
+
+            </div>
         </section>
 
         <section class="cta-section cta-community">
