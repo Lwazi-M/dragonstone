@@ -1,0 +1,71 @@
+/* =========================================
+STYLE_ADMIN.CSS - Styles for the Admin Panel
+========================================= */
+
+/* Use the same root colors, but we'll re-declare them for simplicity */
+:root {
+  --color-primary-green: #3A6B35;
+  --color-primary-orange: #E76F51;
+  --color-background-light-grey: #F8F9FA;
+  --color-border-light: #E0E0E0;
+  --color-text-dark: #212529;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--color-background-light-grey);
+  display: flex; /* Using flex to center the login box */
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  height: 100vh; /* Make the body 100% of the viewport height */
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px; /* Limit the width of the login box */
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.login-container h2 {
+  text-align: center;
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  box-sizing: border-box; /* Fixes padding issues */
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--color-primary-green); /* Green button for admin */
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #2c522a; /* Darker green */
+}
