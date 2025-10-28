@@ -390,3 +390,16 @@ footer {
   object-fit: cover; /* This is magic: it makes the image cover the space
                        without stretching or squashing. */
 }
+
+/* Makes the product card link behave like our card */
+.product-card-link {
+  text-decoration: none; /* Removes the underline */
+  color: inherit; /* Makes the text inherit its color (not blue) */
+  display: block; /* Makes the link a block element */
+}
+
+.product-card-link .product-card {
+  /* This selector applies to the card *inside* the link */
+  /* This is just to ensure our styles are applied correctly */
+  width: 100%; /* Make sure it fills the link */
+}

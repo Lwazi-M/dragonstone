@@ -1,0 +1,136 @@
+/* =========================================
+PRODUCT.CSS - Styles for the Product Detail Page
+========================================= */
+
+.product-page-container {
+  max-width: 1200px; /* Limit the width */
+  margin: 2rem auto; /* Center it with space on top/bottom */
+  padding: 0 2rem; /* Space on the sides */
+}
+
+.back-link {
+  text-decoration: none;
+  color: var(--color-primary-green);
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+/* This is the main layout (Image on left, Text on right) */
+.product-detail-layout {
+  display: grid; /* We use CSS Grid for this 2-column layout */
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 3rem; /* Space between the columns */
+}
+
+.product-image-column .pdp-image {
+  width: 100%;
+  border-radius: var(--border-radius-main);
+  background-color: var(--color-background-light-grey); /* BG for image */
+}
+
+/* Styles for the right-side text column */
+.product-details-column .pdp-category {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase; /* Makes it "LIFESTYLE" */
+  letter-spacing: 1px;
+}
+
+.product-details-column h1 {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+}
+
+.product-details-column .pdp-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.product-details-column .pdp-stock {
+  font-size: 0.9rem;
+  color: var(--color-primary-green);
+  font-weight: bold;
+}
+
+/* This styles the Carbon Footprint box
+
+*/
+.carbon-footprint-box {
+  display: flex; /* Icon on left, text on right */
+  align-items: center;
+  background-color: var(--color-background-light-grey);
+  border-radius: var(--border-radius-main);
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.carbon-footprint-box .carbon-icon {
+  margin-right: 1rem;
+  /* We'll add a real icon later */
+}
+
+.carbon-footprint-box .carbon-text span {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* This styles the subscription options */
+.subscription-options {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.subscription-options .option-box {
+  padding: 1rem;
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--border-radius-main);
+  flex-grow: 1; /* Makes both boxes fill the space */
+  cursor: pointer;
+}
+
+.subscription-options .option-box.active {
+  border-color: var(--color-primary-green);
+  background-color: #f0f5f0; /* A very light green */
+}
+
+.product-details-column .pdp-price h2 {
+  font-size: 2.5rem;
+  color: var(--color-primary-green);
+  margin-bottom: 1.5rem;
+}
+
+/* Styles the Quantity and "Add to Cart" button */
+.pdp-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-main);
+}
+
+.quantity-selector button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+.quantity-selector span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.btn-add-to-cart {
+  flex-grow: 1; /* Makes the button fill the remaining space */
+  font-size: 1.1rem;
+}

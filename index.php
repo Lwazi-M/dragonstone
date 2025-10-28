@@ -91,12 +91,14 @@
                         that match the 'image_url' in the database.
                         */
 
-                        echo '<div class="product-card">';
+                        // This line creates a link to product.php and passes the product's ID in the URL
+                        // e.g., product.php?id=1
+                        echo '<a href="product.php?id=' . $row['product_id'] . '" class="product-card-link">';
                         echo '  <img src="' . $row['image_url'] . '" alt="' . $row['name'] . '" class="product-image">'; // We'll style .product-image next
                         echo '  <h3>' . $row['name'] . '</h3>';
                         echo '  <p>' . $row['description'] . '</p>';
                         echo '  <span>R ' . $row['price'] . '</span>';
-                        echo '</div>';
+                        echo '</a>'; // We close the link tag here
                     }
                 } else {
                     // If the database is empty, show a message.
