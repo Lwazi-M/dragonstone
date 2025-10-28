@@ -203,3 +203,102 @@ This styles the big "Sustainable Living" banner.
 .hero-section .btn {
   margin: 0 0.5rem; /* Adds 0.5rem of space on the left and right of each button */
 }
+
+/* =========================================
+6. VALUE PROPOSITIONS SECTION
+=========================================
+This styles the three items with icons (Eco-Friendly, Small Suppliers, Community Tips).
+
+We will use Flexbox again to make them line up in a nice row.
+*/
+
+.value-section {
+  display: flex; /* Activates flexbox */
+  justify-content: space-around; /* Spreads the 3 items out evenly */
+  padding: 4rem 2rem; /* Lots of space (top/bottom, left/right) */
+  background-color: var(--color-background-white);
+  text-align: center; /* Centers the text inside each item */
+}
+
+.value-item {
+  max-width: 300px; /* Stops each item from getting too wide */
+  padding: 1rem; /* A little space inside each item */
+}
+
+.value-item h3 {
+  font-size: 1.25rem;
+  margin: 1rem 0; /* Adds space above and below the h3 title */
+}
+
+.value-item p {
+  font-size: 0.9rem;
+  color: #555; /* A slightly lighter text color */
+}
+
+/* =========================================
+7. PRODUCT SECTION (BEST SELLERS)
+=========================================
+This styles the "Best Sellers" title and the grid of product cards.
+
+We will use "CSS Grid" here, which is the perfect tool for a grid.
+*/
+
+.product-section {
+  padding: 4rem 2rem;
+  background-color: var(--color-background-light-grey); /* A light grey background to separate it */
+}
+
+.product-section h2 {
+  text-align: center; /* Center the "Best Sellers" title */
+  font-size: 2rem;
+  margin-bottom: 2rem; /* Space below the title */
+}
+
+.product-grid {
+  display: grid; /* Activates CSS Grid */
+  /* This line is the magic: It creates 3 equal-sized columns.
+     On smaller screens, we'll change this to 1 or 2 columns. */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; /* This is the space BETWEEN each card in the grid */
+  max-width: 1200px; /* Stops the grid from getting too wide on huge monitors */
+  margin: 0 auto; /* Centers the whole grid on the page */
+}
+
+/*
+This is the style for the individual product card.
+*/
+.product-card {
+  background-color: var(--color-background-white); /* White background */
+  border-radius: var(--border-radius-main); /* Uses our rounded corner "nickname" */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* A very subtle shadow */
+  overflow: hidden; /* Keeps the image corners rounded */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animation */
+}
+
+.product-card:hover {
+  transform: translateY(-5px); /* Moves the card up 5px when you hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Makes the shadow a bit stronger */
+}
+
+/* We will add a placeholder for the image.
+The <img> tag will be inside a <div> in the final code, 
+but for now, this will do.
+*/
+.product-card h3 {
+  font-size: 1.1rem;
+  padding: 1rem 1rem 0.5rem 1rem; /* Space inside, but not at the bottom */
+}
+
+.product-card p {
+  font-size: 0.9rem;
+  color: #555;
+  padding: 0 1rem 1rem 1rem; /* Space inside, but not at the top */
+}
+
+.product-card span {
+  display: block; /* Makes the price its own line */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-primary-green);
+  padding: 0 1rem 1.5rem 1rem; /* Space at the bottom */
+}
