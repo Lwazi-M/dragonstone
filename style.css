@@ -105,3 +105,101 @@ This way, we only have to style "btn" once.
   background-color: var(--color-primary-orange); /* On hover, fill it in */
   color: var(--color-text-light); /* On hover, make the text white */
 }
+
+/* =========================================
+4. HEADER & NAVIGATION BAR STYLES
+=========================================
+This styles the <header> and the <nav> inside it.
+We'll use "flexbox" to make everything line up nicely.
+Flexbox is a modern CSS tool for arranging items in a row or column.
+*/
+
+.navbar {
+  display: flex; /* This "activates" flexbox */
+  justify-content: space-between; /* This puts space BETWEEN our items (logo, menu, icons) */
+  align-items: center; /* This vertically centers all items in the navbar */
+  padding: 1rem 2rem; /* 'rem' is a modern size unit. 1rem = 16px. This is 16px top/bottom, 32px left/right */
+  background-color: var(--color-background-white);
+  border-bottom: 1px solid var(--color-border-light); /* Adds a subtle grey line at the bottom */
+  height: 80px; /* Gives the navbar a fixed height */
+}
+
+/* Style the logo link */
+.nav-logo {
+  font-size: 1.5rem; /* Makes the logo text bigger */
+  font-weight: bold;
+  color: var(--color-text-dark);
+  text-decoration: none; /* Removes underline */
+}
+
+/* Style the menu (the <ul> list) */
+.nav-menu {
+  display: flex; /* We use flexbox *again* to make the menu items line up in a row */
+  list-style: none; /* Removes the default bullet points */
+}
+
+.nav-item {
+  margin-left: 1.5rem; /* Adds some space to the LEFT of each menu item, separating them */
+}
+
+.nav-link {
+  text-decoration: none; /* Removes underline */
+  color: var(--color-text-dark);
+  font-weight: 600; /* Makes the font a bit bolder than normal text */
+  padding: 8px; /* Adds some "clickable" space around the text */
+  transition: color 0.3s ease; /* Smoothly animates the color on hover */
+}
+
+.nav-link:hover {
+  color: var(--color-primary-green); /* When you hover, the text turns green */
+}
+
+/* Style the icons on the right */
+.nav-icons {
+  display: flex;
+}
+
+.nav-icons .icon-link {
+  margin-left: 1rem; /* Adds space between the icons */
+  /* We'll add real icons later */
+}
+
+
+/* =========================================
+5. HERO SECTION STYLES
+=========================================
+This styles the big "Sustainable Living" banner.
+*/
+
+.hero-section {
+  /* This is how we get that big background image from the Figma */
+  /* We'll add a simple green background *just in case* the image fails to load */
+  background-color: var(--color-primary-green);
+  /* We'll add the real image URL later. For now, we'll mimic the green overlay. */
+  background-blend-mode: multiply; /* This is how we get the green tint over the image */
+  background-size: cover; /* Makes the image cover the whole section, no matter the screen size */
+  background-position: center center; /* Centers the image */
+
+  /* We'll use a green color as a stand-in for the image for now */
+  background-image: linear-gradient(rgba(58, 107, 53, 0.8), rgba(58, 107, 53, 0.8)); /* This is a green overlay */
+
+  color: var(--color-text-light); /* Makes all text in this section WHITE */
+  padding: 6rem 2rem; /* Lots of inside spacing (top/bottom, left/right) */
+  text-align: center; /* Centers all the text */
+}
+
+.hero-section h1 {
+  font-size: 3rem; /* Makes the main headline (<h1>) very big */
+  margin-bottom: 1rem; /* Adds space below the headline */
+}
+
+.hero-section p {
+  font-size: 1.2rem; /* Makes the paragraph text slightly bigger than normal */
+  max-width: 600px; /* Stops the text from getting *too* wide on big screens */
+  margin: 0 auto 2rem auto; /* Centers the paragraph and adds 2rem of space below it */
+}
+
+/* This adds space between the two buttons in the hero section */
+.hero-section .btn {
+  margin: 0 0.5rem; /* Adds 0.5rem of space on the left and right of each button */
+}
