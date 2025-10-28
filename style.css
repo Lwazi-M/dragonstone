@@ -302,3 +302,84 @@ but for now, this will do.
   color: var(--color-primary-green);
   padding: 0 1rem 1.5rem 1rem; /* Space at the bottom */
 }
+
+/* =========================================
+8. CALL TO ACTION (CTA) SECTIONS
+=========================================
+This styles the two banners at the bottom of the page.
+
+*/
+
+.cta-section {
+  padding: 3rem 2rem;
+  margin: 2rem auto; /* Adds space above/below and centers it */
+  max-width: 1200px; /* Stops it from getting too wide */
+  border-radius: var(--border-radius-main); /* Rounded corners */
+  text-align: center;
+}
+
+/* This is for the GREEN community banner */
+.cta-community {
+  background-color: var(--color-primary-green);
+  color: var(--color-text-light); /* White text */
+}
+
+.cta-community h2 {
+  margin-bottom: 1rem;
+}
+
+.cta-community p {
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* This is for the ORANGE-BORDER subscribe banner */
+.cta-subscribe {
+  background-color: var(--color-background-white);
+  border: 2px solid var(--color-border-light); /* Light grey border */
+  /* We'll use Flexbox to put the text on the left and button on the right,
+     but for mobile, 'center' is fine. We'll add that later. */
+}
+
+.cta-subscribe h2 {
+  margin-bottom: 0.5rem;
+}
+
+.cta-subscribe p {
+  margin-bottom: 1.5rem;
+}
+
+/* We'll use this to override the hover effect.
+   The button in the Figma render has an orange border and orange text.
+   This matches our '.btn-primary-outline' class we already made.
+   But the Figma also shows an orange *fill* button.
+   Let's make a new class for that.
+*/
+
+/* This is the orange button for the subscribe box */
+.cta-subscribe .btn-learn-more {
+  background-color: var(--color-primary-orange);
+  color: var(--color-text-light);
+}
+
+.cta-subscribe .btn-learn-more:hover {
+  background-color: #c95d41; /* Darker orange */
+}
+
+
+/* =========================================
+9. FOOTER
+=========================================
+This styles the very bottom of the page.
+*/
+
+footer {
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--color-text-dark); /* Dark background */
+  color: #aaa; /* Light grey text */
+  font-size: 0.9rem;
+  margin-top: 4rem; /* Adds space above the footer */
+}

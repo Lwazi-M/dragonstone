@@ -1,4 +1,4 @@
-' blocks are comments. The browser ignores them,
+'' blocks are comments. The browser ignores them,
     but they help humans understand the code.
 -->
 
@@ -35,7 +35,7 @@
             <h1>Sustainable Living, Made Simple</h1>
             <p>Discover eco-friendly products from small suppliers, join our community, and make a positive impact on the planet.</p>
             <a href="index.php" class="btn btn-primary">Shop Now</a>
-            <a href="about.php" class="btn btn-secondary">Learn More</a>
+            <a href="index.php" class="btn btn-learn-more">Learn More</a>
         </section>
 
         <section class="value-section">
