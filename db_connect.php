@@ -9,6 +9,7 @@ We will "include" this file in all other PHP pages
 that need to talk to the database.
 */
 
+
 // === DATABASE LOGIN DETAILS ===
 // These are the default login details for XAMPP.
 // When we move to InfinityFree (the live host),

@@ -1,136 +1,157 @@
 /* =========================================
 PRODUCT.CSS - Styles for the Product Detail Page
-========================================= */
+=========================================
+This file contains styles *only* used on the 'product.php' page.
+It works *together* with 'style.css'.
+*/
 
+/* Styles the main container for the product page content */
 .product-page-container {
-  max-width: 1200px; /* Limit the width */
-  margin: 2rem auto; /* Center it with space on top/bottom */
-  padding: 0 2rem; /* Space on the sides */
+  max-width: 1200px; /* Limits the maximum width on large screens */
+  margin: 2rem auto; /* Centers the container horizontally with 2rem space top/bottom */
+  padding: 0 2rem; /* Adds 2rem of space on the left and right sides */
 }
 
+/* Styles the "< Back to Shop" link */
 .back-link {
-  text-decoration: none;
-  color: var(--color-primary-green);
+  text-decoration: none; /* Removes the default underline */
+  color: var(--color-primary-green); /* Uses the green variable from style.css */
   font-weight: bold;
-  display: inline-block;
-  margin-bottom: 2rem;
+  display: inline-block; /* Allows setting margin-bottom */
+  margin-bottom: 2rem; /* Adds space below the link */
 }
 
-/* This is the main layout (Image on left, Text on right) */
+/* This is the main layout for the image and details.
+We use CSS Grid to create two columns.
+*/
 .product-detail-layout {
-  display: grid; /* We use CSS Grid for this 2-column layout */
-  grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 3rem; /* Space between the columns */
+  display: grid; /* Activates CSS Grid */
+  /* Creates two columns of equal width ('1fr' means 1 fraction of the available space) */
+  grid-template-columns: 1fr 1fr; 
+  gap: 3rem; /* Creates a 3rem space *between* the two columns */
 }
 
+/* Styles the image in the left column */
 .product-image-column .pdp-image {
-  width: 100%;
-  border-radius: var(--border-radius-main);
-  background-color: var(--color-background-light-grey); /* BG for image */
+  width: 100%; /* Makes the image fill the column width */
+  border-radius: var(--border-radius-main); /* Uses the rounded corner variable */
+  background-color: var(--color-background-light-grey); /* Adds a light grey background behind the image */
 }
 
 /* Styles for the right-side text column */
 .product-details-column .pdp-category {
   font-size: 0.9rem;
   font-weight: bold;
-  color: #555;
-  text-transform: uppercase; /* Makes it "LIFESTYLE" */
-  letter-spacing: 1px;
+  color: #555; /* A medium grey color */
+  text-transform: uppercase; /* Makes the text "LIFESTYLE" instead of "Lifestyle" */
+  letter-spacing: 1px; /* Adds a little space between letters */
 }
 
+/* Styles the main product title (<h1>) */
 .product-details-column h1 {
   font-size: 2.5rem;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0; /* Adds 0.5rem space above and below */
 }
 
+/* Styles the product description paragraph */
 .product-details-column .pdp-description {
   font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  line-height: 1.6; /* Standard readable line spacing */
+  margin-bottom: 1rem; /* Space below the description */
 }
 
+/* Styles the "In Stock" text */
 .product-details-column .pdp-stock {
   font-size: 0.9rem;
-  color: var(--color-primary-green);
+  color: var(--color-primary-green); /* Green color */
   font-weight: bold;
 }
 
 /* This styles the Carbon Footprint box
-
+[cite: user's uploaded image 'WhatsApp Image 2025-10-20 at 16.19.45_caff32fb.jpg']
 */
 .carbon-footprint-box {
-  display: flex; /* Icon on left, text on right */
-  align-items: center;
-  background-color: var(--color-background-light-grey);
-  border-radius: var(--border-radius-main);
-  padding: 1rem;
-  margin: 1.5rem 0;
+  display: flex; /* Uses Flexbox to put the icon on the left, text on the right */
+  align-items: center; /* Vertically aligns the icon and text */
+  background-color: var(--color-background-light-grey); /* Light grey background */
+  border-radius: var(--border-radius-main); /* Rounded corners */
+  padding: 1rem; /* Space inside the box */
+  margin: 1.5rem 0; /* Space above and below the box */
 }
 
+/* Styles the placeholder for the carbon footprint icon */
 .carbon-footprint-box .carbon-icon {
-  margin-right: 1rem;
-  /* We'll add a real icon later */
+  margin-right: 1rem; /* Space between the icon and the text */
+  /* We'll replace this with a real icon later */
 }
 
+/* Styles the smaller text inside the carbon footprint box */
 .carbon-footprint-box .carbon-text span {
-  display: block;
+  display: block; /* Makes the "Equivalent to..." text go on its own line */
   font-size: 0.9rem;
   color: #555;
 }
 
-/* This styles the subscription options */
+/* This styles the subscription options ("One-time Purchase" / "Subscribe") */
 .subscription-options {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  display: flex; /* Puts the two option boxes side-by-side */
+  gap: 1rem; /* Space between the boxes */
+  margin-bottom: 1.5rem; /* Space below the options */
 }
 
+/* Styles each individual subscription option box */
 .subscription-options .option-box {
   padding: 1rem;
-  border: 2px solid var(--color-border-light);
-  border-radius: var(--border-radius-main);
-  flex-grow: 1; /* Makes both boxes fill the space */
-  cursor: pointer;
+  border: 2px solid var(--color-border-light); /* Light grey border */
+  border-radius: var(--border-radius-main); /* Rounded corners */
+  flex-grow: 1; /* Makes both boxes stretch to fill the available width equally */
+  cursor: pointer; /* Changes the mouse to a pointer on hover */
 }
 
+/* Styles the *active* (selected) subscription option box */
 .subscription-options .option-box.active {
-  border-color: var(--color-primary-green);
-  background-color: #f0f5f0; /* A very light green */
+  border-color: var(--color-primary-green); /* Green border */
+  background-color: #f0f5f0; /* A very light green background */
 }
 
+/* Styles the main price display (<h2>) */
 .product-details-column .pdp-price h2 {
   font-size: 2.5rem;
   color: var(--color-primary-green);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; /* Space below the price */
 }
 
-/* Styles the Quantity and "Add to Cart" button */
+/* Styles the container holding the quantity selector and Add to Cart button */
 .pdp-actions {
-  display: flex;
-  gap: 1rem;
+  display: flex; /* Puts the quantity selector and button side-by-side */
+  gap: 1rem; /* Space between them */
 }
 
+/* Styles the quantity selector box (+ / 1 / -) */
 .quantity-selector {
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically aligns the buttons and number */
   border: 1px solid var(--color-border-light);
   border-radius: var(--border-radius-main);
 }
 
+/* Styles the + and - buttons */
 .quantity-selector button {
-  background: none;
-  border: none;
+  background: none; /* No background color */
+  border: none; /* No border */
   font-size: 1.5rem;
-  padding: 0 1rem;
+  padding: 0 1rem; /* Space around the + / - symbols */
   cursor: pointer;
 }
 
+/* Styles the number '1' in the quantity selector */
 .quantity-selector span {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
+/* Styles the "Add to Cart" button */
 .btn-add-to-cart {
-  flex-grow: 1; /* Makes the button fill the remaining space */
+  flex-grow: 1; /* Makes the button stretch to fill the remaining space */
   font-size: 1.1rem;
 }

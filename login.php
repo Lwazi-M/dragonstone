@@ -1,55 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - DragonStone</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<?php
+/*
+==================================================================
+FILE: login.php
+PURPOSE: Shows a login form for *customers*.
+HOW IT WORKS:
+1. It sets the $pageTitle variable (which 'header.php' will use).
+2. It includes the reusable 'header.php'.
+3. It shows the HTML login form.
+4. The form sends its data to 'login_process_customer.php'.
+5. It includes the reusable 'footer.php'.
+==================================================================
+*/
 
-    <header>
-        <nav class="navbar"> 
-            <a href="index.php" class="nav-logo">DragonStone</a>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="index.php" class="nav-link">Shop</a></li>
-                <li class="nav-item"><a href="community.php" class="nav-link">Community</a></li>
-                <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-icons">
-                <a href="login.php" class="icon-link">UserIcon</a>
-                <a href="cart.php" class="icon-link">CartIcon</a>
+// 1. Set the page title
+// This variable will be used by 'header.php'
+$pageTitle = "Login - DragonStone";
+
+// 2. Include the reusable header
+// This prints the DOCTYPE, <head>, and the nav bar.
+// Because the user is not logged in yet, the header
+// will *automatically* show "Login" and "Register".
+include 'header.php';
+?>
+
+<!--
+The <main> tag holds all the content that is *unique* to this page.
+The '.form-container' class is a reusable style we
+created for the login/register forms.
+-->
+<main>
+    <div class="form-container">
+        
+        <!-- 
+        This form sends its data to 'login_process_customer.php'
+        using the secure 'POST' method.
+        -->
+        <form action="login_process_customer.php" method="POST">
+            <h2>Login to Your Account</h2>
+            
+            <?php
+            // This is a small bonus script.
+            // If the login fails (from 'login_process_customer.php'),
+            // it redirects back here with a message in the URL, like "?error=UserNotFound".
+            // This code checks for that error and shows a friendly message.
+            if (isset($_GET['error'])) {
+                if ($_GET['error'] == 'IncorrectPassword') {
+                    echo '<p class="form-error">Error: Incorrect password. Please try again.</p>';
+                } elseif ($_GET['error'] == 'UserNotFound') {
+                    echo '<p class="form-error">Error: No account found with that email address.</p>';
+                }
+            }
+            // This checks for a *success* message from registering
+            if (isset($_GET['success']) && $_GET['success'] == 'Registered') {
+                 echo '<p class="form-success">Registration successful! Please log in.</p>';
+            }
+            ?>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <!-- 
+                'name="email"' is the "key" that 'login_process_customer.php'
+                will use to get the value from this input.
+                'required' makes the browser stop submission if it's empty.
+                -->
+                <input type="email" id="email" name="email" required>
             </div>
-        </nav>
-    </header>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <!-- 'type="password"' hides the characters as the user types. -->
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <!-- 'type="submit"' tells the browser this button submits the form -->
+            <button type="submit" class="btn btn-primary form-btn">Login</button>
 
-    <main>
-        <div class="form-container">
-            <form action="login_process_customer.php" method="POST">
-                <h2>Login to Your Account</h2>
-                
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary form-btn">Login</button>
+            <p class="form-switch">
+                Don't have an account? <a href="register.php">Register here</a>
+            </p>
+        </form>
+    </div>
+</main>
+<!-- This is the end of the unique content for this page. -->
 
-                <p class="form-switch">
-                    Don't have an account? <a href="register.php">Register here</a>
-                </p>
-            </form>
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 DragonStone. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
+<?php
+// 3. Include the reusable footer
+// This will print the <footer> and close the <body> and <html> tags.
+include 'footer.php';
+?>
