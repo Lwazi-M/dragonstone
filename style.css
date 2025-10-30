@@ -744,3 +744,369 @@ footer {
   padding: 1rem;
   font-size: 1.1rem;
 }
+
+/* =========================================
+13. GENERIC PAGE & PROFILE STYLES
+========================================= */
+
+/* A generic container for simple pages like "About" and "Profile" */
+.page-container {
+    max-width: 1200px;
+    margin: 2rem auto; /* Center the container with space */
+    padding: 0 2rem; /* Add space on the left/right */
+}
+
+/* A generic header for simple pages */
+.page-header {
+    border-bottom: 2px solid var(--color-border-light);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+}
+
+/* Two-column layout for the profile */
+.profile-layout {
+    display: grid;
+    /* Creates two columns: a 300px fixed sidebar, 
+       and '1fr' which means "1 fraction" (takes up the rest of the space) */
+    grid-template-columns: 300px 1fr; 
+    gap: 2rem; /* The space between the two columns */
+}
+
+/* The card on the left holding user details */
+.profile-card {
+    background: var(--color-background-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-main);
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.profile-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary-green);
+}
+
+.profile-card p {
+    font-size: 1rem;
+    color: #555; /* A medium-dark grey */
+    margin-bottom: 0.5rem;
+}
+
+.profile-card hr {
+    margin: 1.5rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-border-light);
+}
+
+/* The small ecopoints display in the profile card */
+.ecopoints-display-small {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.ecopoints-display-small .points-icon {
+    font-size: 2rem;
+    display: block;
+}
+.ecopoints-display-small .points-balance {
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+    color: var(--color-primary-green);
+}
+
+/* The orange logout button on the profile page */
+.btn-logout-profile {
+    display: block; /* Make it a full-width block */
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    background-color: var(--color-primary-orange);
+    color: var(--color-text-light);
+    padding: 0.75rem;
+    border-radius: var(--border-radius-main);
+    text-decoration: none;
+    font-weight: bold;
+    box-sizing: border-box; /* Ensures padding doesn't break the 100% width */
+}
+
+.btn-logout-profile:hover {
+    background-color: #c95d41; /* Darker orange */
+}
+
+/* The main content area on the right */
+.profile-content h2 {
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--color-border-light);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.profile-section {
+    margin-bottom: 2.5rem;
+}
+
+/* =========================================
+14. SHOPPING CART & CHECKOUT STYLES
+========================================= */
+
+/* This creates the two-column layout */
+.cart-layout {
+    display: grid;
+    /* Two columns: left one is 2/3, right one is 1/3 */
+    grid-template-columns: 2fr 1fr; 
+    gap: 2rem; /* Space between columns */
+    margin-top: 2rem;
+}
+
+/* Styles for the individual item in the cart */
+.cart-item {
+    display: flex; /* Image on left, details on right */
+    gap: 1.5rem; /* Space between image and text */
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.cart-item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--border-radius-main);
+    border: 1px solid var(--color-border-light);
+}
+
+/* This div holds the name, quantity, and price */
+.cart-item-details {
+    flex-grow: 1; /* Makes this div take up all available space */
+}
+
+.cart-item-details h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.cart-item-details p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.cart-item-details strong {
+    font-size: 1.1rem;
+    color: var(--color-primary-green);
+}
+
+/* The little trash can link */
+.cart-remove-link {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #e74c3c; /* Red color */
+    padding: 0.5rem;
+}
+
+/* A simple line to separate cart items from shipping */
+.cart-divider {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-border-light);
+}
+
+/* Styles for the shipping form */
+.shipping-form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* This creates the two-column layout for First/Last name */
+.form-group-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* This makes each form-group in the row take up half the space */
+.form-group-row .form-group {
+    flex: 1; 
+}
+
+
+/* === Right Column: Order Summary === */
+
+.order-summary-box {
+    background-color: var(--color-background-light-grey);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-main);
+    padding: 1.5rem;
+    /* 'sticky' makes the summary box follow you as you scroll */
+    position: sticky;
+    top: 2rem; /* Stick 2rem from the top */
+}
+
+.order-summary-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between; /* Puts text on left, price on right */
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.summary-row span {
+    color: #555;
+}
+
+.summary-row strong {
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+/* Styles the final "Total" row */
+.summary-total {
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding-top: 1rem;
+    border-top: 2px solid var(--color-border-light);
+}
+
+/* Styles the EcoPoints redeem section */
+.ecopoints-redeem {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.ecopoints-redeem label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.ecopoints-redeem small {
+    font-size: 0.9rem;
+    color: #555;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.ecopoints-redeem small a {
+    color: var(--color-primary-green);
+    font-weight: bold;
+}
+
+/* Styles the input field for redeeming points */
+.ecopoints-redeem input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+/* Styles the payment method icons */
+.payment-methods {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-light);
+}
+
+.payment-methods p {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+/* We'll just style the placeholder spans for now */
+.payment-icons span {
+    border: 1px solid var(--color-border-light);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+/* =========================================
+15. ECO CHALLENGE STYLES
+========================================= */
+
+.challenge-grid {
+    display: grid;
+    /* This will create 3 columns on desktop */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.challenge-card {
+    background-color: var(--color-background-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-main);
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative; /* Needed for the points badge */
+    display: flex;
+    flex-direction: column; /* Stacks content vertically */
+}
+
+/* This is the red points badge from the Figma */
+.challenge-points {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--color-primary-orange);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+}
+
+.challenge-card h3 {
+    font-size: 1.4rem;
+    color: var(--color-primary-green);
+    margin-bottom: 0.5rem;
+}
+
+.challenge-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+    /* This makes the card text grow to fill space */
+    flex-grow: 1; 
+}
+
+.challenge-meta {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #777;
+    margin-bottom: 1.5rem;
+}
+
+/* This is the disabled "Joined" button */
+.btn-disabled {
+    background-color: #bdc3c7; /* Grey */
+    color: #7f8c8d;
+    cursor: not-allowed;
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: var(--border-radius-main);
+    font-weight: bold;
+    border: none;
+    text-align: center;
+}

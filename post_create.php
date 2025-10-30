@@ -15,16 +15,11 @@ HOW IT WORKS:
 */
 
 // 1. Start the session
-// This *must* come first to access session variables.
-session_start();
+// session_start();  <-- THIS LINE WAS THE BUG AND IS NOW REMOVED.
 
 // 2. SECURITY CHECK: Is the user logged in?
-// This protects the page from guests.
-if( !isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true ) {
-    // If not, redirect to the login page
-    header("Location: login.php?error=NotLoggedIn");
-    exit(); // Stop the script
-}
+// This check MUST be moved to *after* the header is included.
+
 
 // 3. Set the page title
 // This variable will be used by 'header.php'
@@ -32,16 +27,19 @@ $pageTitle = "Create New Post - DragonStone";
 
 // 4. Include the reusable header
 // This prints the DOCTYPE, <head>, and the nav bar.
-// The nav bar will correctly show "Profile" and "Logout"
-// because the session is already started.
+// *** THIS FILE ALSO CALLS session_start() FOR US ***
 include 'header.php';
+
+// 2. (NOW IT'S STEP 2) SECURITY CHECK: Is the user logged in?
+// Now that the header has started the session, we can
+// safely check the $_SESSION variables.
+if( !isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true ) {
+    // If not, redirect to the login page
+    header("Location: login.php?error=NotLoggedIn");
+    exit(); // Stop the script
+}
 ?>
 
-<!--
-The <main> tag holds all the content that is *unique* to this page.
-The '.form-container' class is a reusable style we
-created for the login/register forms, and it works perfectly here.
--->
 <main>
     <div class="form-container">
         

@@ -11,8 +11,8 @@ HOW IT WORKS:
    empty array if it doesn't exist yet.
 4. It checks if the product is *already* in the cart.
 5. IF YES: It just updates the quantity.
-6. IF NO: It fetches the product's name and price from the
-   database (for security) and adds it to the cart.
+6. IF NO: It fetches the product's name, price, AND IMAGE
+   from the database (for security) and adds it to the cart.
 7. It redirects the user back to the product page.
 ==================================================================
 */
@@ -41,18 +41,29 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
     } else {
         // 6. IF NO: Fetch product details from DB
         
-        $sql = "SELECT name, price FROM products WHERE product_id = ?";
+        // ==========================================================
+        // *** BUG FIX ***
+        // We must ALSO select the 'image_url' so we can show it
+        // in the cart.
+        // ==========================================================
+        $sql = "SELECT name, price, image_url FROM products WHERE product_id = ?";
+        
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $product_id);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($product = $result->fetch_assoc()) {
-            // Add the new item to the cart session
+            
+            // ==========================================================
+            // *** BUG FIX ***
+            // We must ALSO save the 'image_url' to our session array.
+            // ==========================================================
             $_SESSION['cart'][$product_id] = array(
                 'name' => $product['name'],
                 'price' => $product['price'],
-                'quantity' => $quantity
+                'quantity' => $quantity,
+                'image_url' => $product['image_url'] // <-- THE FIX
             );
         }
         $stmt->close();
@@ -70,3 +81,4 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
     exit();
 }
 ?>
+

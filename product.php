@@ -67,7 +67,7 @@ if ($result->num_rows > 0) {
 // 4. SET THE DYNAMIC PAGE TITLE
 // We use the 'name' field from the $product data we just fetched.
 // This $pageTitle variable will be used by header.php.
-$pageTitle = $product['name'] . " - DragonStone";
+$pageTitle = htmlspecialchars($product['name']) . " - DragonStone";
 
 // 5. We're done with the database, so we close the connections.
 $stmt->close();
@@ -78,60 +78,32 @@ $conn->close();
 include 'header.php';
 ?>
 
-<!--
-The <main> tag holds all the content that is *unique* to this page.
--->
 <main class="product-page-container">
     
-    <!-- '&larr;' is the HTML code for the ← arrow -->
     <a href="index.php" class="back-link">&larr; Back to Shop</a>
 
-    <!-- This 'div' holds our two-column layout (image and text) -->
     <div class="product-detail-layout">
 
-        <!-- Left Column (Image) -->
         <div class="product-image-column">
-            <!-- We 'echo' the product's image URL and name
-                 to fill the 'src' (source) and 'alt' (alternative text) -->
-            <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['name']; ?>" class="pdp-image">
+            <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="pdp-image">
         </div>
 
-        <!-- Right Column (Details) -->
         <div class="product-details-column">
-            <!-- We 'echo' all the product data into the HTML -->
-            <span class="pdp-category"><?php echo $product['category']; ?></span>
-            <h1><?php echo $product['name']; ?></h1>
-            <p class="pdp-description"><?php echo $product['description']; ?></p>
+            <span class="pdp-category"><?php echo htmlspecialchars($product['category']); ?></span>
+            <h1><?php echo htmlspecialchars($product['name']); ?></h1>
+            <p class="pdp-description"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
             
-            <span class="pdp-stock">In Stock (<?php echo $product['stock_quantity']; ?>)</span>
+            <span class="pdp-stock">In Stock (<?php echo htmlspecialchars($product['stock_quantity']); ?>)</span>
 
-            <!-- 
-            =========================================
-            CRITICAL FEATURE: Carbon Footprint
-            =========================================
-            This section displays the 'carbon_footprint_value' from the database.
-            This is a key requirement from Deliverable 1.
-            [cite: ITECA3-34 – Project – Deliverable 1 – Project Proposal Block 3 2025 (V1.0)READY.docx, WhatsApp Image 2025-10-20 at 16.19.45_caff32fb.jpg]
-            -->
             <div class="carbon-footprint-box">
-                <span class="carbon-icon">Icon</span> <!-- We can replace this with a real icon later -->
-                <div class="carbon-text">
-                    <strong>Carbon Footprint: <?php echo $product['carbon_footprint_value']; ?>kg CO2e</strong>
-                    <!-- This is a simple (dummy) calculation for display -->
-                    <span>Equivalent to <?php echo $product['carbon_footprint_value'] * 4.5; ?>km of driving</span>
+                <span class="carbon-icon">Icon</span> <div class="carbon-text">
+                    <strong>Carbon Footprint: <?php echo htmlspecialchars($product['carbon_footprint_value']); ?>kg CO2e</strong>
+                    <span>Equivalent to <?php echo htmlspecialchars($product['carbon_footprint_value'] * 4.5); ?>km of driving</span>
                 </div>
             </div>
 
-            <!-- 
-            =========================================
-            CRITICAL FEATURE: Subscription Options
-            =========================================
-            This section shows the subscription option, a key requirement.
-            [cite: ITECA3-34 – Project – Deliverable 1 – Project Proposal Block 3 2025 (V1.0)READY.docx]
-            -->
             <div class="subscription-options">
                 <div class="option-box active">
-                    <!-- 'checked' makes this the default selected option -->
                     <label><input type="radio" name="purchase-type" checked> One-time Purchase</label>
                 </div>
                 <div class="option-box">
@@ -139,65 +111,30 @@ The <main> tag holds all the content that is *unique* to this page.
                 </div>
             </div>
 
-            <div class="pdp-price">
-                <h2>R <?php echo $product['price']; ?></h2>
-            </div>
+            <form action="cart_add.php" method="POST">
             
-            <!-- 
-                =======================================================
-                START OF THE SHOPPING CART FORM
-                This form will send the product_id and quantity
-                to our new 'cart_add.php' script.
-                =======================================================
-                -->
-                <form action="cart_add.php" method="POST">
+                <div class="pdp-price">
+                    <h2>R <?php echo htmlspecialchars($product['price']); ?></h2>
+                </div>
                 
-                    <div class="pdp-price">
-                        <h2>R <?php echo $product['price']; ?></h2>
-                    </div>
-                    
-                    <div class="pdp-actions">
-                        <div class="quantity-selector">
-                            <!-- 
-                            We give the buttons IDs so our JavaScript can find them.
-                            We set 'type="button"' so they DON'T submit the form.
-                            -->
-                            <button type="button" id="quantity-minus">-</button>
-                            
-                            <!-- 
-                            The <span> is replaced with an <input>
-                            so the value can be sent with the form.
-                            -->
-                            <input type="number" id="quantity-input" name="quantity" value="1" min="1" readonly>
-                            
-                            <button type="button" id="quantity-plus">+</button>
-                        </div>
-
-                        <!-- 
-                        This is a "hidden" input. The user can't see it,
-                        but it sends the product's ID along with the form.
-                        This is how 'cart_add.php' knows WHICH product to add.
-                        -->
-                        <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                <div class="pdp-actions">
+                    <div class="quantity-selector">
+                        <button type="button" id="quantity-minus">-</button>
                         
-                        <!-- 
-                        This is now a 'type="submit"' button, which
-                        will send the form.
-                        -->
-                        <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                        <input type="number" id="quantity-input" name="quantity" value="1" min="1" readonly>
+                        
+                        <button type="button" id="quantity-plus">+</button>
                     </div>
 
-                </form> <!-- END OF THE FORM -->
+                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                    
+                    <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                </div>
 
-            </div>
-        </div>
-    </main>
+            </form> </div>
+    </div>
+</main>
 
-    <!-- 
-    This JavaScript makes the '+' and '-' buttons work.
-    It finds the buttons and the input field by their IDs
-    and adds 'click' event listeners.
-    -->
     <script>
         // Wait for the page to load
         document.addEventListener("DOMContentLoaded", function() {

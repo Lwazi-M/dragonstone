@@ -17,7 +17,7 @@ SECTION 1: PHP Session Logic
 This PHP block must run *before* any HTML is sent to the browser.
 */
 
-// session_start();
+// session_start(); <-- This was a duplicated comment, I removed it.
 // PURPOSE: This is a *critical* command. It tells the server
 // to either start a new "session" (like a temporary memory file)
 // or resume an existing one.
@@ -127,3 +127,4 @@ if (!isset($pageTitle)) {
     The <main> content for each page will start right after this
     in the other files (like index.php).
     -->
+

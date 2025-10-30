@@ -3,160 +3,160 @@
 ==================================================================
 FILE: community.php
 PURPOSE: This is the main hub for logged-in customers.
-HOW IT WORKS:
-1. It starts the customer session.
-2. It CHECKS if the user is logged in. If not, it redirects
-   them to login.php. This is a "protected" page.
-3. It connects to the database and fetches all forum posts,
-   using a "JOIN" to get the authors' names.
-4. It sets the custom page title.
-5. It includes 'header.php'.
-6. It displays the EcoPoints header and the forum posts.
-7. It includes 'footer.php'.
 ==================================================================
 */
 
-// 1. Start the session
-// This *must* come first to access session variables.
-session_start();
+// 1. Set the page title *before* including the header
+$pageTitle = "Community Hub - DragonStone";
 
-// 2. SECURITY CHECK: Is the user logged in?
-// 'isset' checks if the 'user_logged_in' variable even exists.
+// 2. Include the reusable header
+// This file *MUST* be included first.
+// It calls session_start() for us, which fixes the error.
+include 'header.php';
+
+// 3. SECURITY CHECK: Is the user logged in?
 if( !isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true ) {
-    // If it doesn't exist, or isn't 'true', the user is not logged in.
-    // Kick them to the login page.
     header("Location: login.php?error=NotLoggedIn");
     exit(); // Stop the script
 }
 
-// 3. Connect to the database to fetch posts
+// 4. Connect to the database
 include 'db_connect.php';
 
-// This SQL query is more advanced. It "JOINS" two tables:
-// 'forum_posts' and 'users'.
-// It connects them 'ON' the 'user_id' column, which exists in both.
-// This lets us get the post's title AND the user's firstname/lastname
-// all in one query.
-$sql = "SELECT forum_posts.*, users.firstname, users.lastname 
-        FROM forum_posts 
-        JOIN users ON forum_posts.user_id = users.user_id 
-        ORDER BY forum_posts.created_at DESC"; // Get newest posts first
+// 5. Get the user's ID from the session
+$user_id = $_SESSION['user_id'];
 
-$result = $conn->query($sql);
+/*
+==================================================================
+SECTION 5: FETCH ALL DATA FOR THE PAGE
+==================================================================
+*/
 
-// 4. Set the page title
-$pageTitle = "Community Hub - DragonStone";
+// --- Query 1: Fetch all *available* Eco Challenges ---
+$sql_challenges = "SELECT * FROM challenges ORDER BY ecopoints_reward DESC";
+$result_challenges = $conn->query($sql_challenges);
+$all_challenges = array();
+while($row = $result_challenges->fetch_assoc()) {
+    $all_challenges[] = $row;
+}
 
-// 5. Include the reusable header
-// This prints the <head> section and the smart navigation bar.
-include 'header.php';
+// --- Query 2: Fetch all challenges this *user* has *joined* ---
+// We just need the IDs for a quick check.
+$sql_joined = "SELECT challenge_id FROM user_challenges WHERE user_id = ?";
+$stmt_joined = $conn->prepare($sql_joined);
+$stmt_joined->bind_param("i", $user_id);
+$stmt_joined->execute();
+$result_joined = $stmt_joined->get_result();
+
+$joined_challenge_ids = array();
+while($row = $result_joined->fetch_assoc()) {
+    // We add the ID as a "key" for easy lookup
+    $joined_challenge_ids[$row['challenge_id']] = true;
+}
+$stmt_joined->close();
+
+
+// --- Query 3: Fetch all *forum posts* with author names ---
+$sql_posts = "SELECT forum_posts.*, users.firstname, users.lastname 
+              FROM forum_posts 
+              JOIN users ON forum_posts.user_id = users.user_id 
+              ORDER BY forum_posts.created_at DESC";
+$result_posts = $conn->query($sql_posts);
+
+// We are done fetching data for now
+$conn->close();
 ?>
 
-<!--
-The <main> tag holds all the content that is *unique* to this page.
--->
 <main>
-    <!-- 
-    =========================================
-    CRITICAL FEATURE: EcoPoints Header
-    [cite: user's uploaded image 'WhatsApp Image 2025-10-20 at 16.19.45_a31ca8e9.jpg']
-    =========================================
-    This section uses the session variables we saved during login
-    to personalize the page for the user.
-    -->
     <div class="community-header">
         <div class="welcome-message">
-            <!-- We "echo" (print) the user's name from the session -->
             <h2>Welcome back, <?php echo htmlspecialchars($_SESSION['user_firstname']); ?>!</h2>
             <p>Keep making a difference in your community</p>
         </div>
         <div class="ecopoints-display">
-            <span class="points-icon">🏆</span> <!-- Simple emoji icon -->
+            <span class="points-icon">🏆</span>
             Your EcoPoints
-            <!-- We "echo" (print) the user's points from the session -->
             <span class="points-balance"><?php echo htmlspecialchars($_SESSION['user_ecopoints']); ?></span>
         </div>
     </div>
 
-    <!-- This container holds the tabs and the content -->
     <div class="community-container">
         
-        <!-- Tab Navigation -->
         <div class="community-tabs">
-            <!-- This button calls the JavaScript function 'openTab' -->
-            <button class="tab-link" onclick="openTab('Challenges')">Eco Challenges</button>
-            <button class="tab-link active" onclick="openTab('Forum')">Community Forum</button>
+            <button class="tab-link active" onclick="openTab('Challenges')">Eco Challenges</button>
+            <button class="tab-link" onclick="openTab('Forum')">Community Forum</button>
         </div>
 
-        <!-- Tab Content: Eco Challenges -->
-        <!-- This tab is hidden by default with CSS ('display: none') -->
-        <div id="Challenges" class="tab-content">
+        <div id="Challenges" class="tab-content" style="display:block;">
             <h3>Active Challenges</h3>
+            <p>Join challenges to earn EcoPoints and make an impact.</p>
+            <br>
             <div class="challenge-grid">
-                <!-- 
-                This is a placeholder based on your Figma design.
-                [cite: user's uploaded image 'WhatsApp Image 2025-10-20 at 16.19.45_7e4bc52d.jpg']
-                Your friend could build this out later by creating
-                a 'challenges' table in the database.
-                -->
-                <div class="challenge-card">
-                    <p>Eco Challenges (like "Waste-Free Week") will be shown here.</p>
-                </div>
+                <?php
+                // Loop through all available challenges
+                if (empty($all_challenges)) {
+                    echo "<p>No Eco Challenges are active right now. Check back soon!</p>";
+                } else {
+                    foreach ($all_challenges as $challenge) {
+                ?>
+                        <div class="challenge-card">
+                            <div class="challenge-points">+ <?php echo $challenge['ecopoints_reward']; ?> pts</div>
+                            <h3><?php echo htmlspecialchars($challenge['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($challenge['description']); ?></p>
+                            <div class="challenge-meta">
+                                <span><?php echo $challenge['duration_days']; ?> days</span>
+                            </div>
+                            
+                            <?php
+                            // This is the "Join" button logic
+                            // We check if the challenge ID exists in the
+                            // $joined_challenge_ids array we made earlier.
+                            if (isset($joined_challenge_ids[$challenge['challenge_id']])) {
+                                // IF YES: Show a disabled "Joined" button
+                                echo '<button class="btn btn-disabled" disabled>Joined</button>';
+                            } else {
+                                // IF NO: Show the "Join Challenge" button
+                                // This is a link to the "brain" file.
+                                echo '<a href="challenge_join.php?id=' . $challenge['challenge_id'] . '" class="btn btn-primary">Join Challenge</a>';
+                            }
+                            ?>
+                        </div>
+                <?php
+                    } // end foreach
+                } // end if/else
+                ?>
             </div>
         </div>
 
-        <!-- Tab Content: Community Forum -->
-        <!-- This tab is SHOWN by default with 'style="display:block;"' -->
-        <div id="Forum" class="tab-content" style="display:block;">
+        <div id="Forum" class="tab-content">
             <div class="forum-header">
                 <h3>Community Posts</h3>
-                <!-- This link goes to the page that lets users create a post -->
                 <a href="post_create.php" class="btn btn-primary">+ New Post</a>
             </div>
             
             <div class="forum-post-list">
                 <?php
-                // 4. Loop through the database results and display them
-                if ($result->num_rows > 0) {
-                    // 'fetch_assoc()' grabs one post at a time
-                    while($row = $result->fetch_assoc()) {
-                        // We "echo" (print) the HTML for each post card,
-                        // filling it with data from the $row variable.
-                        // 'htmlspecialchars()' is a security function to
-                        // prevent XSS attacks (it stops users from
-                        // injecting bad <script> tags into their posts).
+                // 4. Loop through the forum posts and display them
+                if ($result_posts->num_rows > 0) {
+                    while($row = $result_posts->fetch_assoc()) {
                         echo '<div class="post-card">';
                         echo '  <div class="post-category">' . htmlspecialchars($row['category']) . '</div>';
                         echo '  <h4 class="post-title">' . htmlspecialchars($row['title']) . '</h4>';
-                        // 'nl2br()' is a nice function that turns line breaks
-                        // (when a user hits "Enter") into <br> tags.
                         echo '  <p class="post-content">' . nl2br(htmlspecialchars($row['content'])) . '</p>';
                         echo '  <div class="post-meta">';
-                        // We can show the author's name because of our JOIN
                         echo '      by ' . htmlspecialchars($row['firstname']) . ' ' . htmlspecialchars($row['lastname']);
-                        // 'date()' formats the timestamp into a nicer format
                         echo '      <span>' . date('F j, Y, g:i a', strtotime($row['created_at'])) . '</span>';
                         echo '  </div>';
                         echo '</div>';
                     }
                 } else {
-                    // This message shows if the 'forum_posts' table is empty.
                     echo "<p>No community posts yet. Be the first to post!</p>";
                 }
-                // We're done with the database, so we close the connection.
-                $conn->close();
                 ?>
             </div>
         </div>
     </div>
 </main>
-<!-- This is the end of the unique content for this page. -->
-
-<!-- 
-This JavaScript provides the functionality for the tabs.
-It's placed at the bottom so the HTML elements
-(like the buttons) exist *before* the script tries to find them.
--->
 <script>
     function openTab(tabName) {
         var i;
