@@ -143,23 +143,86 @@ The <main> tag holds all the content that is *unique* to this page.
                 <h2>R <?php echo $product['price']; ?></h2>
             </div>
             
-            <!-- This section holds the "Add to Cart" and quantity buttons -->
-            <div class="pdp-actions">
-                <div class="quantity-selector">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
-                </div>
-                <!-- 
-                This button doesn't do anything *yet*.
-                We need to build the Cart functionality for it.
+            <!-- 
+                =======================================================
+                START OF THE SHOPPING CART FORM
+                This form will send the product_id and quantity
+                to our new 'cart_add.php' script.
+                =======================================================
                 -->
-                <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
-            </div>
+                <form action="cart_add.php" method="POST">
+                
+                    <div class="pdp-price">
+                        <h2>R <?php echo $product['price']; ?></h2>
+                    </div>
+                    
+                    <div class="pdp-actions">
+                        <div class="quantity-selector">
+                            <!-- 
+                            We give the buttons IDs so our JavaScript can find them.
+                            We set 'type="button"' so they DON'T submit the form.
+                            -->
+                            <button type="button" id="quantity-minus">-</button>
+                            
+                            <!-- 
+                            The <span> is replaced with an <input>
+                            so the value can be sent with the form.
+                            -->
+                            <input type="number" id="quantity-input" name="quantity" value="1" min="1" readonly>
+                            
+                            <button type="button" id="quantity-plus">+</button>
+                        </div>
 
+                        <!-- 
+                        This is a "hidden" input. The user can't see it,
+                        but it sends the product's ID along with the form.
+                        This is how 'cart_add.php' knows WHICH product to add.
+                        -->
+                        <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                        
+                        <!-- 
+                        This is now a 'type="submit"' button, which
+                        will send the form.
+                        -->
+                        <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                    </div>
+
+                </form> <!-- END OF THE FORM -->
+
+            </div>
         </div>
-    </div>
-</main>
+    </main>
+
+    <!-- 
+    This JavaScript makes the '+' and '-' buttons work.
+    It finds the buttons and the input field by their IDs
+    and adds 'click' event listeners.
+    -->
+    <script>
+        // Wait for the page to load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the three elements
+            const minusButton = document.getElementById('quantity-minus');
+            const plusButton = document.getElementById('quantity-plus');
+            const quantityInput = document.getElementById('quantity-input');
+
+            // Add a click listener to the '+' button
+            plusButton.addEventListener('click', function() {
+                // Convert the current value to a number and add 1
+                let currentValue = parseInt(quantityInput.value);
+                quantityInput.value = currentValue + 1;
+            });
+
+            // Add a click listener to the '-' button
+            minusButton.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                // Only subtract if the value is more than 1
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+        });
+    </script>
 
 <?php
 // 7. Include the reusable footer
