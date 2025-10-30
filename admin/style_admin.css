@@ -1,32 +1,63 @@
 /* =========================================
-STYLE_ADMIN.CSS - Styles for the Admin Panel
-========================================= */
+STYLE_ADMIN.CSS - Main Stylesheet for Admin Panel
+=========================================
+This file controls all the "looks" for the *entire*
+admin section, including:
+- The Login Page
+- The Sidebar/Layout
+- Data Tables (for managing products/users)
+- Forms (for adding/editing products/users)
+*/
 
-/* Use the same root colors, but we'll re-declare them for simplicity */
+/* =========================================
+1. GLOBAL STYLES & VARIABLES
+=========================================
+*/
 :root {
+  /* These are the "nicknames" for our colors */
   --color-primary-green: #3A6B35;
-  --color-primary-orange: #E76F51;
+  --color-primary-orange: #E76F51; /* For logout button */
   --color-background-light-grey: #F8F9FA;
   --color-border-light: #E0E0E0;
   --color-text-dark: #212529;
 }
 
+/* We apply these base styles to the <body> tag.
+However, because our admin layout and login page are
+so different, we will *override* these styles
+for the admin panel pages (see .admin-wrapper)
+*/
 body {
   font-family: Arial, sans-serif;
   background-color: var(--color-background-light-grey);
-  display: flex; /* Using flex to center the login box */
-  justify-content: center; /* Horizontally center */
-  align-items: center; /* Vertically center */
-  height: 100vh; /* Make the body 100% of the viewport height */
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================
+2. LOGIN PAGE STYLES (`login.php`)
+=========================================
+These styles *only* apply to the login page.
+We use flexbox to perfectly center the login box.
+*/
+.login-body {
+  /* We add a class to the <body> of login.php to use these styles.
+  This is a good way to separate page-specific body styles.
+  Let's assume the <body> tag in login.php is: <body class="login-body">
+  */
+  display: flex; /* Activates flexbox */
+  justify-content: center; /* Horizontally centers content */
+  align-items: center; /* Vertically centers content */
+  height: 100vh; /* 100% of the viewport (screen) height */
 }
 
 .login-container {
   width: 100%;
-  max-width: 400px; /* Limit the width of the login box */
+  max-width: 400px; /* Limits the width of the login box */
   padding: 2rem;
   background-color: #FFFFFF;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 .login-container h2 {
@@ -40,17 +71,17 @@ body {
 }
 
 .input-group label {
-  display: block;
+  display: block; /* Puts the label on its own line */
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
 .input-group input {
-  width: 100%;
+  width: 100%; /* Makes the input fill the container */
   padding: 0.75rem;
   border: 1px solid var(--color-border-light);
   border-radius: 4px;
-  box-sizing: border-box; /* Fixes padding issues */
+  box-sizing: border-box; /* Includes padding in the 100% width */
 }
 
 .btn-login {
@@ -58,12 +89,12 @@ body {
   padding: 0.75rem;
   border: none;
   border-radius: 4px;
-  background-color: var(--color-primary-green); /* Green button for admin */
+  background-color: var(--color-primary-green); /* Green button */
   color: white;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
 .btn-login:hover {
@@ -71,7 +102,7 @@ body {
 }
 
 /* =========================================
-ADMIN LAYOUT STYLES
+3. ADMIN LAYOUT STYLES (for all other pages)
 ========================================= */
 
 /* This wrapper holds the sidebar and main content */
@@ -90,6 +121,7 @@ ADMIN LAYOUT STYLES
   display: flex;
   flex-direction: column; /* Stacks items vertically */
   padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Adds shadow to sidebar */
 }
 
 .admin-sidebar .sidebar-title {
@@ -109,7 +141,7 @@ ADMIN LAYOUT STYLES
 }
 
 .admin-sidebar ul li a {
-  display: block;
+  display: block; /* Makes the whole link clickable */
   color: white;
   text-decoration: none;
   padding: 0.75rem 1rem;
@@ -121,6 +153,7 @@ ADMIN LAYOUT STYLES
   background-color: #4a4a4a; /* Hover color */
 }
 
+/* Styles the logout button at the bottom */
 .sidebar-footer .logout-button {
   display: block;
   text-align: center;
@@ -137,16 +170,21 @@ ADMIN LAYOUT STYLES
   flex-grow: 1; /* Makes this area fill all remaining space */
   display: flex;
   flex-direction: column;
+  height: 100vh; /* Full height */
+  overflow-y: auto; /* Adds a scrollbar *only* to this area if content is too long */
 }
 
+/* Styles the top header bar (with "Welcome, admin") */
 .admin-header {
   background-color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid var(--color-border-light);
   text-align: right;
+  z-index: 10; /* Keeps it on top */
 }
 
+/* This is the container for the main page content */
 .page-content {
   padding: 2rem;
 }
@@ -179,12 +217,12 @@ ADMIN LAYOUT STYLES
 }
 
 /* =========================================
-ADMIN TABLE & FORM STYLES
+4. ADMIN TABLE STYLES (for manage_products, etc.)
 ========================================= */
 
 .page-header {
   display: flex;
-  justify-content: space-between; /* Puts "Manage Products" on left, button on right */
+  justify-content: space-between; /* Puts title on left, button on right */
   align-items: center;
   margin-bottom: 2rem;
 }
@@ -224,7 +262,7 @@ ADMIN TABLE & FORM STYLES
 .table-thumbnail {
   width: 60px;
   height: 60px;
-  object-fit: cover;
+  object-fit: cover; /* Prevents image stretching */
   border-radius: 4px;
 }
 
@@ -247,7 +285,7 @@ ADMIN TABLE & FORM STYLES
 }
 
 /* =========================================
-ADMIN FORM STYLES
+5. ADMIN FORM STYLES (for product_form, etc.)
 ========================================= */
 
 .data-form {
@@ -271,6 +309,8 @@ ADMIN FORM STYLES
 /* This styles all text inputs, textareas, and number inputs */
 .form-group input[type="text"],
 .form-group input[type="number"],
+.form-group input[type="password"],
+.form-group select,
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
@@ -296,3 +336,24 @@ ADMIN FORM STYLES
   font-weight: bold;
 }
 
+/* =========================================
+6. ADMIN FORM MESSAGES
+========================================= */
+
+.form-error {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border: 1px solid #f5c6cb;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.form-success {
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Dark green */
+  border: 1px solid #c3e6cb;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
