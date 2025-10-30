@@ -645,3 +645,102 @@ footer {
 .about-hero h1 {
     font-size: 2.5rem;
 }
+
+/* =========================================
+14. SHOPPING CART PAGE STYLES
+========================================= */
+
+.cart-page-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.cart-layout {
+  display: flex;
+  gap: 2rem; /* Space between the two columns */
+  align-items: flex-start; /* Aligns columns to the top */
+}
+
+/* This is the main column on the left */
+.cart-items-column {
+  flex: 2; /* This column will be 2/3 of the width */
+}
+
+.cart-item {
+  display: flex; /* Makes image and details sit side-by-side */
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.cart-item-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--border-radius-main);
+}
+
+.cart-item-details h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.cart-item-details .item-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--color-primary-green);
+  margin-bottom: 0.5rem;
+}
+
+.cart-item-details .item-quantity {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.cart-item-remove-link {
+  font-size: 0.9rem;
+  color: #e74c3c; /* Red */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* This is the summary column on the right */
+.cart-summary-column {
+  flex: 1; /* This column will be 1/3 of the width */
+  background-color: var(--color-background-light-grey);
+  border-radius: var(--border-radius-main);
+  padding: 1.5rem;
+}
+
+.cart-summary-column h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 1rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.summary-row.total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* This styles the "Proceed to Payment" button */
+.btn-checkout {
+  width: 100%; /* Makes the button full-width */
+  margin-top: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
